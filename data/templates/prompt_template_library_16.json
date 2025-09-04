@@ -1,0 +1,7 @@
+[
+  {
+    "name": "Persona",
+    "cluster": "Creativity",
+    "template": "Act as a {role}. Task: {task}."
+  }
+]

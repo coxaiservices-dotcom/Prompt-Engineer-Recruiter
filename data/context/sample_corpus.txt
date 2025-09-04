@@ -1,0 +1,7 @@
+GENERIC CORPUS (DEMO-ONLY)
+- Prompt Libraries increase consistency and reduce variance across teams.
+- Multi-turn chat requires maintaining concise conversation state and summaries.
+- RAG (Retrieval-Augmented Generation) grounds answers in a controlled corpus and
+  should say 'Not in context' when documents do not contain the answer.
+- Safety patterns include Fact-Check Lists, Cognitive Verifiers, and Semantic Filters.
+- Structuring patterns include Templates, Recipes, Outlines, and Menus.
