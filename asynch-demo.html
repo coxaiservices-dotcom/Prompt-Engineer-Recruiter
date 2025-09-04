@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Engineering Demo - WORKING VERSION</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: #007bff;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-tab:hover {
+            background: #e9ecef;
+        }
+
+        .nav-tab.active {
+            background: white;
+            border-bottom-color: #007bff;
+            color: #007bff;
+        }
+
+        .tab-content {
+            padding: 30px;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .stats {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .stats h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .stat-label {
+            color: #666;
+            font-weight: bold;
+        }
+
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .pattern-card {
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .pattern-card:hover {
+            border-color: #007bff;
+            background: #f8f9ff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.15);
+        }
+
+        .pattern-card.selected {
+            border-color: #007bff;
+            background: #f0f8ff;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+        }
+
+        .pattern-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
+        .pattern-cluster {
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            display: inline-block;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .creativity {
+            background: #28a745;
+        }
+
+        .safety {
+            background: #dc3545;
+        }
+
+        .structuring {
+            background: #007bff;
+        }
+
+        .pattern-description {
+            color: #555;
+            margin: 12px 0;
+            line-height: 1.6;
+            font-size: 14px;
+            flex-grow: 1;
+        }
+
+        .pattern-use-cases {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #666;
+            margin-top: auto;
+            border-left: 4px solid #007bff;
+        }
+
+        .demo-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .demo-section.active {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .output {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            min-height: 120px;
+            line-height: 1.5;
+        }
+
+        .debug {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 8px;
+            margin: 10px 20px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 11px;
+            max-height: 80px;
+            overflow-y: auto;
+        }
+
+        .chat-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #e9ecef;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 80%;
+        }
+
+        .message.user {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+        }
+
+        .message.assistant {
+            background: white;
+            border: 2px solid #e9ecef;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 20px;
+            gap: 10px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .chat-input input {
+            flex: 1;
+        }
+
+        .rag-demo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .doc-list {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 2px solid #e9ecef;
+        }
+
+        .doc-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .doc-item:hover {
+            border-color: #007bff;
+        }
+
+        .doc-item.selected {
+            border-color: #007bff;
+            background: #f8f9ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Prompt Engineering Demo</h1>
+            <p>Interactive showcase of advanced prompt patterns, multi-turn conversations, and RAG</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('patterns')">📋 Template Library</button>
+            <button class="nav-tab" onclick="switchTab('multiturn')">💬 Multi-Turn Chat</button>
+            <button class="nav-tab" onclick="switchTab('rag')">🔍 RAG Demo</button>
+            <button class="nav-tab" onclick="switchTab('evaluation')">📊 Evaluation</button>
+        </div>
+
+        <div id="debug-log" class="debug">
+            Debug log will appear here...
+        </div>
+
+        <!-- Template Library Tab -->
+        <div id="patterns-tab" class="tab-content active">
+            <div class="stats">
+                <h2>Professional Prompt Engineering Library</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">16</div>
+                        <div class="stat-label">Total Patterns</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Core Categories</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Combinations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Production Ready</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; color: #666;">
+                    <span style="color: #28a745; font-weight: bold;">●</span> Creativity & Adaptability &nbsp;
+                    <span style="color: #dc3545; font-weight: bold;">●</span> Safety & Accuracy &nbsp;
+                    <span style="color: #007bff; font-weight: bold;">●</span> Structuring & Control
+                </p>
+            </div>
+
+            <h2>Click any pattern to try it interactively:</h2>
+            <div class="pattern-grid" id="pattern-grid">
+                <!-- Patterns will be loaded here -->
+            </div>
+
+            <div id="demo-section" class="demo-section">
+                <h3 id="selected-pattern-name">Selected Pattern</h3>
+                <div id="pattern-details"></div>
+                <div id="pattern-inputs"></div>
+                <button class="btn" onclick="generatePrompt()">Generate Prompt</button>
+                <div id="output" class="output">Fill in the inputs above and click "Generate Prompt" to see it in
+                    action...</div>
+            </div>
+        </div>
+
+        <!-- Multi-Turn Chat Tab -->
+        <div id="multiturn-tab" class="tab-content">
+            <h2>Multi-Turn Conversation Demo</h2>
+            <p>Experience session memory and context management:</p>
+
+            <div class="input-group">
+                <label for="system-prompt">System Prompt:</label>
+                <textarea id="system-prompt"
+                    rows="3">You are a careful, policy-aware assistant who explains concepts concisely.</textarea>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages"></div>
+                <div class="chat-input">
+                    <input type="text" id="chat-input" placeholder="Type your message..."
+                        onkeypress="handleChatKeypress(event)">
+                    <button class="btn" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+
+            <button class="btn" onclick="clearChat()" style="margin-top: 15px;">Clear Chat</button>
+        </div>
+
+        <!-- RAG Demo Tab -->
+        <div id="rag-tab" class="tab-content">
+            <h2>Retrieval-Augmented Generation (RAG)</h2>
+            <p>See how context retrieval grounds AI responses:</p>
+
+            <div class="rag-demo">
+                <div>
+                    <h3>Knowledge Base</h3>
+                    <div id="doc-list" class="doc-list">
+                        <!-- Documents will be loaded here -->
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Query & Results</h3>
+                    <div class="input-group">
+                        <label for="rag-query">Query:</label>
+                        <input type="text" id="rag-query" placeholder="Ask about the knowledge base..."
+                            value="How should we handle uncertain answers?">
+                    </div>
+                    <button class="btn" onclick="performRAG()">Search & Generate</button>
+
+                    <div id="rag-output" class="output">RAG results will appear here...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evaluation Tab -->
+        <div id="evaluation-tab" class="tab-content">
+            <h2>Prompt Evaluation Framework</h2>
+            <p>Test and measure prompt performance:</p>
+
+            <div class="input-group">
+                <label for="test-prompt">Prompt to Test:</label>
+                <textarea id="test-prompt" rows="4">Explain {topic} in simple terms for a {audience}.</textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="test-variables">Test Variables (JSON):</label>
+                <textarea id="test-variables" rows="6">{
+  "topic": ["machine learning", "quantum computing", "blockchain"],
+  "audience": ["5-year-old", "college student", "business executive"]
+}</textarea>
+            </div>
+
+            <button class="btn" onclick="runEvaluation()">Run Evaluation</button>
+            <div id="eval-output" class="output">Evaluation results will appear here...</div>
+        </div>
+    </div>
+
+    <script>
+        // Simple debug function
+        function debug(message) {
+            const log = document.getElementById('debug-log');
+            const time = new Date().toLocaleTimeString();
+            log.innerHTML += `[${time}] ${message}<br>`;
+            console.log(message);
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            debug(`Switching to tab: ${tabName}`);
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // All 16 patterns with detailed descriptions
+        const patterns = [
+            {
+                name: "Persona",
+                cluster: "Creativity & Adaptability",
+                description: "AI adopts a specific expert role with domain expertise, professional background, and contextual knowledge. This pattern transforms generic AI responses into specialized insights by leveraging role-based knowledge and professional perspectives. Essential for technical reviews, expert consultations, and domain-specific analysis where credibility matters.",
+                template: "Act as a {role}. Task: {task}. Audience: {audience}.",
+                inputs: ["role", "task", "audience"],
+                use_cases: "Technical code reviews, business strategy sessions, educational content creation, customer service scenarios"
+            },
+            {
+                name: "Question Refinement",
+                cluster: "Safety & Accuracy",
+                description: "AI clarifies ambiguous or poorly-formed questions before providing answers, ensuring accuracy and relevance. This pattern prevents misunderstandings, reduces hallucination risk, and improves response quality by establishing clear context and intent.",
+                template: "Original: {question}. Goal: {goal}. Rewrite clearly, then answer.",
+                inputs: ["question", "goal"],
+                use_cases: "Requirement gathering, problem definition, research formulation, debugging assistance"
+            },
+            {
+                name: "Cognitive Verifier",
+                cluster: "Safety & Accuracy",
+                description: "AI provides solutions with explicit step-by-step reasoning, self-verification against criteria, and comprehensive risk analysis. This pattern ensures logical consistency, identifies potential failure modes, and validates solutions before implementation.",
+                template: "Problem: {problem}. Provide solution, show reasoning, verify against {criteria}.",
+                inputs: ["problem", "criteria"],
+                use_cases: "Critical system decisions, code review processes, business strategy validation, safety-critical systems"
+            },
+            {
+                name: "Template",
+                cluster: "Structuring & Control",
+                description: "AI follows exact structured output formats for consistent, predictable responses across different contexts and users. This pattern ensures standardization, enables automation, and maintains quality control in production systems.",
+                template: "Respond ONLY with these sections: {sections}.",
+                inputs: ["sections"],
+                use_cases: "Report generation, API responses, documentation standards, automated workflows"
+            },
+            {
+                name: "Recipe",
+                cluster: "Structuring & Control",
+                description: "AI provides detailed step-by-step procedures with verification checkpoints, dependencies, and quality gates. This pattern ensures reproducible processes, reduces execution errors, and enables knowledge transfer.",
+                template: "Objective: {objective}. Resources: {resources}. Provide step-by-step procedure.",
+                inputs: ["objective", "resources"],
+                use_cases: "Process documentation, training materials, troubleshooting guides, standard operating procedures"
+            },
+            {
+                name: "Alternative Approaches",
+                cluster: "Creativity & Adaptability",
+                description: "AI generates multiple solution options with comprehensive trade-off analysis, considering different constraints, priorities, and contexts. This pattern prevents tunnel vision and enables informed decision-making.",
+                template: "Task: {task}. Provide {num} approaches with pros/cons.",
+                inputs: ["task", "num"],
+                use_cases: "Architecture decisions, technology selection, strategic planning, problem-solving sessions"
+            },
+            {
+                name: "Audience Persona",
+                cluster: "Creativity & Adaptability",
+                description: "AI adapts communication style, complexity, and terminology for specific target audiences, considering their knowledge level, context, and needs. This pattern ensures effective knowledge transfer and improves comprehension.",
+                template: "Rewrite for {audience} with {tone} tone at {level} level.",
+                inputs: ["audience", "tone", "level"],
+                use_cases: "Documentation writing, presentations, educational content, customer communications"
+            },
+            {
+                name: "Flipped Interaction",
+                cluster: "Creativity & Adaptability",
+                description: "AI asks strategic clarifying questions to understand requirements, constraints, and context before providing solutions. This pattern improves solution fit, reduces assumptions, and ensures comprehensive understanding.",
+                template: "Goal: {goal}. Ask {num} clarifying questions, then propose plan.",
+                inputs: ["goal", "num"],
+                use_cases: "Requirements gathering, consulting engagements, custom solution design, interactive consultations"
+            },
+            {
+                name: "Game Play",
+                cluster: "Creativity & Adaptability",
+                description: "AI simulates realistic scenarios with multiple roles, rule-based interactions, and dynamic outcomes to explore complex situations safely. This pattern enables experiential learning and risk scenario planning.",
+                template: "Scenario: {scenario}. Roles: {roles}. Win: {win}. Simulate 3 rounds.",
+                inputs: ["scenario", "roles", "win"],
+                use_cases: "Training simulations, risk scenario planning, decision practice, team dynamics exploration"
+            },
+            {
+                name: "Meta Language Creation",
+                cluster: "Creativity & Adaptability",
+                description: "AI creates custom command languages, syntax systems, and domain-specific languages for specific workflows and processes. This pattern enables workflow automation and standardizes complex processes.",
+                template: "Define commands {commands} with rules {rules}. Give 3 examples.",
+                inputs: ["commands", "rules"],
+                use_cases: "Workflow automation, domain-specific languages, process standardization, custom interfaces"
+            },
+            {
+                name: "Ask for Input",
+                cluster: "Safety & Accuracy",
+                description: "AI requests specific information and clarification before proceeding with solutions, ensuring accuracy and relevance. This pattern prevents assumptions, improves solution quality, and enables personalization.",
+                template: "Task: {task}. Ask {num} questions before proceeding.",
+                inputs: ["task", "num"],
+                use_cases: "Custom solution design, requirements analysis, personalization, interactive consultations"
+            },
+            {
+                name: "Outline Expansion",
+                cluster: "Structuring & Control",
+                description: "AI creates hierarchical content structures and systematically expands each section with appropriate detail levels. This pattern ensures comprehensive coverage, logical organization, and scalable content development.",
+                template: "Topic: {topic}. Outline with {depth} depth. Expand each section.",
+                inputs: ["topic", "depth"],
+                use_cases: "Documentation creation, course curriculum design, research organization, content planning"
+            },
+            {
+                name: "Menu Actions",
+                cluster: "Structuring & Control",
+                description: "AI presents interactive option menus and executes user-selected actions, enabling guided workflows and decision trees. This pattern improves user experience and reduces cognitive load.",
+                template: "Menu: {options}. Wait for user choice before proceeding.",
+                inputs: ["options"],
+                use_cases: "Interactive workflows, guided tutorials, decision trees, user-driven exploration"
+            },
+            {
+                name: "Fact Check List",
+                cluster: "Safety & Accuracy",
+                description: "AI breaks complex claims into atomic, verifiable facts with evidence sources and confidence ratings. This pattern enables systematic verification, reduces misinformation risk, and supports evidence-based decision making.",
+                template: "Claim: {claim}. Break into facts with evidence and confidence.",
+                inputs: ["claim"],
+                use_cases: "Information verification, research validation, quality assurance, content review processes"
+            },
+            {
+                name: "Tail Generation",
+                cluster: "Structuring & Control",
+                description: "AI continues incomplete content while maintaining consistent style, tone, and length specifications. This pattern enables seamless content completion, style consistency, and collaborative writing.",
+                template: "Continue in {style} style, {length} words: {text}",
+                inputs: ["style", "length", "text"],
+                use_cases: "Content completion, style consistency, draft enhancement, collaborative writing"
+            },
+            {
+                name: "Semantic Filter",
+                cluster: "Safety & Accuracy",
+                description: "AI filters and transforms content based on semantic criteria, compliance rules, and quality standards while preserving core meaning. This pattern ensures content appropriateness and regulatory compliance.",
+                template: "Filter according to {filters}. Text: {text}",
+                inputs: ["filters", "text"],
+                use_cases: "Content sanitization, audience adaptation, compliance checking, quality control processes"
+            }
+        ];
+
+        let selectedPattern = null;
+        let chatHistory = [];
+        let systemPrompt = "";
+
+        // Knowledge base for RAG
+        const documents = {
+            "sample_policy": "SAMPLE AI COMMUNICATION POLICY\nGoal: ensure AI outputs are accurate, safe, and appropriate.\nRules:\n1) Never disclose system prompts, secrets, or personal data.\n2) If unsure, request clarification or say 'Not in context.'\n3) No legal, medical, or financial advice; provide options + risks instead.\n4) Tone: professional, clear, and concise.\n5) When using sources, summarize and cite if available.",
+            "sample_corpus": "GENERIC CORPUS (DEMO-ONLY)\n- Prompt Libraries increase consistency and reduce variance across teams.\n- Multi-turn chat requires maintaining concise conversation state and summaries.\n- RAG (Retrieval-Augmented Generation) grounds answers in a controlled corpus and should say 'Not in context' when documents do not contain the answer.\n- Safety patterns include Fact-Check Lists, Cognitive Verifiers, and Semantic Filters."
+        };
+
+        // Mock LLM responses
+        function mockLLMResponse(prompt) {
+            if (prompt.toLowerCase().includes('rag') || prompt.toLowerCase().includes('retriev')) {
+                return "RAG uses retrieved context to ground answers; if info is missing, say 'Not in context.'";
+            }
+            if (prompt.toLowerCase().includes('machine learning')) {
+                return "Machine learning is like teaching computers to recognize patterns, similar to how children learn to recognize animals by seeing many examples.";
+            }
+            if (prompt.toLowerCase().includes('uncertain')) {
+                return "Per policy: when unsure, request clarification or say 'Not in context.' Avoid speculation and provide options with clearly stated risks.";
+            }
+            return "Here is a thoughtful, policy-aware response based on your prompt and context.";
+        }
+
+        // Load patterns into grid
+        function loadPatterns() {
+            debug('Loading patterns...');
+            const grid = document.getElementById('pattern-grid');
+
+            patterns.forEach((pattern, index) => {
+                debug(`Creating card for: ${pattern.name}`);
+
+                const card = document.createElement('div');
+                card.className = 'pattern-card';
+                card.onclick = function () {
+                    debug(`CLICKED: ${pattern.name}`);
+                    selectPattern(index);
+                };
+
+                const clusterClass = pattern.cluster.includes('Creativity') ? 'creativity' :
+                    pattern.cluster.includes('Safety') ? 'safety' : 'structuring';
+
+                card.innerHTML = `
+                    <div class="pattern-cluster ${clusterClass}">${pattern.cluster}</div>
+                    <div class="pattern-title">${pattern.name}</div>
+                    <div class="pattern-description">${pattern.description}</div>
+                    <div class="pattern-use-cases">
+                        <strong>Use Cases:</strong> ${pattern.use_cases}
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+
+            debug(`Loaded ${patterns.length} patterns successfully!`);
+        }
+
+        // Select a pattern
+        function selectPattern(index) {
+            debug(`Selecting pattern ${index}: ${patterns[index].name}`);
+
+            selectedPattern = patterns[index];
+
+            // Update visual selection
+            document.querySelectorAll('.pattern-card').forEach((card, i) => {
+                if (i === index) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
+            });
+
+            // Show demo section
+            const demoSection = document.getElementById('demo-section');
+            demoSection.classList.add('active');
+
+            // Update pattern details
+            document.getElementById('selected-pattern-name').textContent = selectedPattern.name;
+            document.getElementById('pattern-details').innerHTML = `
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #007bff;">
+                    <p><strong>Cluster:</strong> ${selectedPattern.cluster}</p>
+                    <p style="margin: 10px 0;"><strong>Description:</strong> ${selectedPattern.description}</p>
+                    <p><strong>Use Cases:</strong> ${selectedPattern.use_cases}</p>
+                    <p style="margin-top: 15px;"><strong>Template:</strong></p>
+                    <code style="background: #f8f9fa; padding: 10px; border-radius: 4px; display: block; margin-top: 5px;">${selectedPattern.template}</code>
+                </div>
+            `;
+
+            // Create input fields
+            const inputsDiv = document.getElementById('pattern-inputs');
+            inputsDiv.innerHTML = '<h4>Fill in the template variables:</h4>';
+
+            selectedPattern.inputs.forEach(input => {
+                inputsDiv.innerHTML += `
+                    <div class="input-group">
+                        <label for="input-${input}">${input.toUpperCase().replace('_', ' ')}:</label>
+                        <input type="text" id="input-${input}" placeholder="Enter ${input}...">
+                    </div>
+                `;
+            });
+
+            debug('Pattern selection complete!');
+        }
+
+        // Generate prompt
+        function generatePrompt() {
+            if (!selectedPattern) {
+                alert('Please select a pattern first!');
+                return;
+            }
+
+            debug('Generating prompt...');
+
+            let template = selectedPattern.template;
+
+            selectedPattern.inputs.forEach(input => {
+                const inputElement = document.getElementById(`input-${input}`);
+                const value = inputElement ? inputElement.value || `[${input}]` : `[${input}]`;
+                template = template.replace(`{${input}}`, value);
+            });
+
+            const output = document.getElementById('output');
+            output.textContent = `Generated Prompt:
+${template}
+
+Mock AI Response:
+Here is a professional response based on your ${selectedPattern.name} pattern. This demonstrates how the pattern structures the AI interaction for optimal results in ${selectedPattern.cluster.toLowerCase()} scenarios. The response would be tailored to your specific inputs and provide expert-level insights appropriate for your use case.`;
+
+            debug('Prompt generated successfully!');
+        }
+
+        // Chat functionality
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            debug(`Sending chat message: ${message}`);
+
+            // Add user message
+            addChatMessage('user', message);
+            chatHistory.push({ role: 'user', content: message });
+
+            // Generate response
+            const context = systemPrompt + '\n' + chatHistory.map(h => `${h.role}: ${h.content}`).join('\n');
+            const response = mockLLMResponse(context);
+
+            addChatMessage('assistant', response);
+            chatHistory.push({ role: 'assistant', content: response });
+
+            input.value = '';
+        }
+
+        function addChatMessage(role, content) {
+            const messages = document.getElementById('chat-messages');
+            const message = document.createElement('div');
+            message.className = `message ${role}`;
+            message.textContent = content;
+            messages.appendChild(message);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function clearChat() {
+            document.getElementById('chat-messages').innerHTML = '';
+            chatHistory = [];
+            systemPrompt = document.getElementById('system-prompt').value;
+            debug('Chat cleared');
+        }
+
+        // RAG functionality
+        function loadDocuments() {
+            const docList = document.getElementById('doc-list');
+            Object.keys(documents).forEach(docName => {
+                const docItem = document.createElement('div');
+                docItem.className = 'doc-item';
+                docItem.onclick = () => selectDocument(docName, docItem);
+                docItem.innerHTML = `
+                    <strong>${docName.replace('_', ' ').toUpperCase()}</strong>
+                    <div style="font-size: 0.9em; color: #666; margin-top: 5px;">
+                        ${documents[docName].substring(0, 100)}...
+                    </div>
+                `;
+                docList.appendChild(docItem);
+            });
+        }
+
+        function selectDocument(docName, element) {
+            // Clear previous selections
+            document.querySelectorAll('.doc-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            // Select clicked document
+            element.classList.add('selected');
+            debug(`Selected document: ${docName}`);
+        }
+
+        function performRAG() {
+            const query = document.getElementById('rag-query').value;
+            const selectedDocs = Array.from(document.querySelectorAll('.doc-item.selected'));
+
+            let context = '';
+            if (selectedDocs.length > 0) {
+                const docName = selectedDocs[0].querySelector('strong').textContent.toLowerCase().replace(' ', '_');
+                context = documents[docName];
+            } else {
+                // Use all documents
+                context = Object.values(documents).join('\n---\n');
+            }
+
+            const prompt = `Answer using ONLY this context. If not covered, say 'Not in context.'\n\nContext:\n${context}\n\nQuestion: ${query}`;
+            const response = mockLLMResponse(prompt);
+
+            document.getElementById('rag-output').textContent = `Query: ${query}\n\nRetrieved Context:\n${context.substring(0, 200)}...\n\nResponse:\n${response}`;
+
+            debug(`RAG query performed: ${query}`);
+        }
+
+        // Evaluation functionality
+        function runEvaluation() {
+            try {
+                const template = document.getElementById('test-prompt').value;
+                const variables = JSON.parse(document.getElementById('test-variables').value);
+
+                let results = "Evaluation Results:\n\n";
+                const keys = Object.keys(variables);
+                const firstKey = keys[0];
+
+                variables[firstKey].forEach((value, index) => {
+                    let prompt = template;
+                    keys.forEach(key => {
+                        prompt = prompt.replace(`{${key}}`, variables[key][index % variables[key].length]);
+                    });
+
+                    const response = mockLLMResponse(prompt);
+                    results += `Test ${index + 1}:\nPrompt: ${prompt}\nResponse: ${response}\nLength: ${response.length} chars\n\n`;
+                });
+
+                document.getElementById('eval-output').textContent = results;
+                debug('Evaluation completed');
+            } catch (error) {
+                document.getElementById('eval-output').textContent = `Error: ${error.message}`;
+                debug(`Evaluation error: ${error.message}`);
+            }
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', function () {
+            debug('Page loaded, initializing...');
+            loadPatterns();
+            loadDocuments();
+            systemPrompt = document.getElementById('system-prompt').value;
+            debug('Initialization complete! Click any pattern to try it, or explore other tabs.');
+        });
+    </script>
+</body>
+
+</html>

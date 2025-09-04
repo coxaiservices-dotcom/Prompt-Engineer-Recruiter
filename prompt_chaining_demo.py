@@ -58,6 +58,7 @@ class PromptChain:
             return self._execute_conditional()
         elif self.chain_type == ChainType.FEEDBACK_LOOP:
             return self._execute_feedback_loop()
+        raise ValueError(f"Unsupported chain type: {self.chain_type}")
     
     def _execute_sequential(self) -> List[ChainResult]:
         """Execute steps in sequence, passing outputs to next step"""
