@@ -1,7 +1,199 @@
 [
   {
     "name": "Persona",
-    "cluster": "Creativity",
-    "template": "Act as a {role}. Task: {task}."
+    "cluster": "Creativity & Adaptability",
+    "tags": [
+      "roleplay",
+      "domain"
+    ],
+    "inputs": [
+      "role",
+      "task",
+      "audience",
+      "domain",
+      "constraints"
+    ],
+    "template": "Act as a {role}. Task: {task}. Audience: {audience}. Domain: {domain}. Constraints: {constraints}."
+  },
+  {
+    "name": "Question Refinement",
+    "cluster": "Safety & Accuracy",
+    "tags": [
+      "clarification"
+    ],
+    "inputs": [
+      "initial_question",
+      "goal"
+    ],
+    "template": "Original: {initial_question}. Goal: {goal}. Rewrite the question to be clearer. Then answer."
+  },
+  {
+    "name": "Cognitive Verifier",
+    "cluster": "Safety & Accuracy",
+    "tags": [
+      "self-check",
+      "logic"
+    ],
+    "inputs": [
+      "problem",
+      "acceptance_criteria"
+    ],
+    "template": "Problem: {problem}. Provide solution. Show reasoning. Verify against {acceptance_criteria}. List risks."
+  },
+  {
+    "name": "Audience Persona",
+    "cluster": "Creativity & Adaptability",
+    "tags": [
+      "communication"
+    ],
+    "inputs": [
+      "audience_type",
+      "tone",
+      "reading_level"
+    ],
+    "template": "Rewrite the content for {audience_type} with {tone} tone at {reading_level} level."
+  },
+  {
+    "name": "Flipped Interaction",
+    "cluster": "Creativity & Adaptability",
+    "tags": [
+      "discovery"
+    ],
+    "inputs": [
+      "goal",
+      "max_questions"
+    ],
+    "template": "Goal: {goal}. Ask me up to {max_questions} clarifying questions. Then propose a plan."
+  },
+  {
+    "name": "Game Play",
+    "cluster": "Creativity & Adaptability",
+    "tags": [
+      "simulation"
+    ],
+    "inputs": [
+      "scenario",
+      "roles",
+      "win_conditions"
+    ],
+    "template": "Scenario: {scenario}. Roles: {roles}. Win: {win_conditions}. Simulate 3 rounds and show lessons."
+  },
+  {
+    "name": "Template",
+    "cluster": "Structuring & Control",
+    "tags": [
+      "format"
+    ],
+    "inputs": [
+      "sections"
+    ],
+    "template": "Respond ONLY with these sections: {sections}."
+  },
+  {
+    "name": "Meta Language Creation",
+    "cluster": "Creativity & Adaptability",
+    "tags": [
+      "DSL"
+    ],
+    "inputs": [
+      "commands",
+      "rules"
+    ],
+    "template": "Define a command language with commands {commands} and rules {rules}. Give 3 examples."
+  },
+  {
+    "name": "Recipe",
+    "cluster": "Structuring & Control",
+    "tags": [
+      "procedure"
+    ],
+    "inputs": [
+      "objective",
+      "resources"
+    ],
+    "template": "Objective: {objective}. Resources: {resources}. Provide step-by-step procedure with checkpoints."
+  },
+  {
+    "name": "Alternative Approaches",
+    "cluster": "Creativity & Adaptability",
+    "tags": [
+      "compare"
+    ],
+    "inputs": [
+      "task",
+      "num_options"
+    ],
+    "template": "Task: {task}. Provide {num_options} approaches. For each: Method, Pros, Cons, Risks."
+  },
+  {
+    "name": "Ask for Input",
+    "cluster": "Safety & Accuracy",
+    "tags": [
+      "interactive"
+    ],
+    "inputs": [
+      "task",
+      "num_questions"
+    ],
+    "template": "Task: {task}. Ask {num_questions} clarifying questions before proceeding."
+  },
+  {
+    "name": "Outline Expansion",
+    "cluster": "Structuring & Control",
+    "tags": [
+      "hierarchy"
+    ],
+    "inputs": [
+      "topic",
+      "depth"
+    ],
+    "template": "Topic: {topic}. Provide outline with depth {depth}. Expand each section."
+  },
+  {
+    "name": "Menu Actions",
+    "cluster": "Structuring & Control",
+    "tags": [
+      "choices"
+    ],
+    "inputs": [
+      "menu_items"
+    ],
+    "template": "Provide a menu of options: {menu_items}. Wait for user choice before proceeding."
+  },
+  {
+    "name": "Fact Check List",
+    "cluster": "Safety & Accuracy",
+    "tags": [
+      "verification"
+    ],
+    "inputs": [
+      "claim"
+    ],
+    "template": "Claim: {claim}. Break into atomic facts. Provide evidence, confidence (High/Med/Low)."
+  },
+  {
+    "name": "Tail Generation",
+    "cluster": "Structuring & Control",
+    "tags": [
+      "completion"
+    ],
+    "inputs": [
+      "incomplete_text",
+      "style",
+      "length"
+    ],
+    "template": "Continue this text in style {style}, about {length} words: {incomplete_text}"
+  },
+  {
+    "name": "Semantic Filter",
+    "cluster": "Safety & Accuracy",
+    "tags": [
+      "filter"
+    ],
+    "inputs": [
+      "text",
+      "filters"
+    ],
+    "template": "Filter text according to {filters}. Return cleaned text and list of changes. Text: {text}"
   }
 ]
