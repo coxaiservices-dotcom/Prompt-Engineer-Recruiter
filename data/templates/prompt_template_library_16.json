@@ -13,7 +13,13 @@
       "domain",
       "constraints"
     ],
-    "template": "Act as a {role}. Task: {task}. Audience: {audience}. Domain: {domain}. Constraints: {constraints}."
+    "template": "Act as a {role}. Task: {task}. Audience: {audience}. Domain: {domain}. Constraints: {constraints}.",
+    "description": "AI adopts a specific expert role/character to provide domain-specific insights and responses",
+    "use_case": "Technical reviews, expert consultations, specialized analysis",
+    "examples": [
+      "Act as a Senior Software Architect reviewing system scalability",
+      "Act as a Financial Advisor explaining investment strategies to beginners"
+    ]
   },
   {
     "name": "Question Refinement",
@@ -25,7 +31,13 @@
       "initial_question",
       "goal"
     ],
-    "template": "Original: {initial_question}. Goal: {goal}. Rewrite the question to be clearer. Then answer."
+    "template": "Original: {initial_question}. Goal: {goal}. Rewrite the question to be clearer. Then answer.",
+    "description": "AI clarifies ambiguous questions before providing answers to ensure accuracy",
+    "use_case": "Requirement gathering, problem definition, research formulation",
+    "examples": [
+      "Original: How do I make it better? Goal: improve code performance",
+      "Original: What should we do? Goal: increase customer satisfaction"
+    ]
   },
   {
     "name": "Cognitive Verifier",
@@ -38,7 +50,13 @@
       "problem",
       "acceptance_criteria"
     ],
-    "template": "Problem: {problem}. Provide solution. Show reasoning. Verify against {acceptance_criteria}. List risks."
+    "template": "Problem: {problem}. Provide solution. Show reasoning. Verify against {acceptance_criteria}. List risks.",
+    "description": "AI provides solutions with step-by-step reasoning, verification, and risk analysis",
+    "use_case": "Critical decisions, code reviews, safety-critical systems",
+    "examples": [
+      "Problem: Database queries running slowly. Criteria: under 100ms, no data loss",
+      "Problem: Choose authentication method. Criteria: secure, user-friendly, compliant"
+    ]
   },
   {
     "name": "Audience Persona",
@@ -51,7 +69,13 @@
       "tone",
       "reading_level"
     ],
-    "template": "Rewrite the content for {audience_type} with {tone} tone at {reading_level} level."
+    "template": "Rewrite the content for {audience_type} with {tone} tone at {reading_level} level.",
+    "description": "AI adapts communication style and complexity for specific target audiences",
+    "use_case": "Documentation writing, presentations, educational content",
+    "examples": [
+      "Rewrite for non-technical executives with professional tone at high school level",
+      "Rewrite for junior developers with encouraging tone at intermediate level"
+    ]
   },
   {
     "name": "Flipped Interaction",
@@ -63,7 +87,13 @@
       "goal",
       "max_questions"
     ],
-    "template": "Goal: {goal}. Ask me up to {max_questions} clarifying questions. Then propose a plan."
+    "template": "Goal: {goal}. Ask me up to {max_questions} clarifying questions. Then propose a plan.",
+    "description": "AI asks strategic questions to understand requirements before providing solutions",
+    "use_case": "Requirements gathering, consulting, custom solution design",
+    "examples": [
+      "Goal: optimize application performance. Ask me up to 5 clarifying questions",
+      "Goal: design training program. Ask me up to 4 clarifying questions"
+    ]
   },
   {
     "name": "Game Play",
@@ -76,7 +106,13 @@
       "roles",
       "win_conditions"
     ],
-    "template": "Scenario: {scenario}. Roles: {roles}. Win: {win_conditions}. Simulate 3 rounds and show lessons."
+    "template": "Scenario: {scenario}. Roles: {roles}. Win: {win_conditions}. Simulate 3 rounds and show lessons.",
+    "description": "AI simulates scenarios with multiple roles and rule-based interactions",
+    "use_case": "Training simulations, risk planning, decision practice",
+    "examples": [
+      "Scenario: Incident response. Roles: DevOps, Security, PM. Win: System restored under 30min",
+      "Scenario: Negotiation. Roles: Buyer, Seller, Mediator. Win: Mutually beneficial deal"
+    ]
   },
   {
     "name": "Template",
@@ -87,7 +123,13 @@
     "inputs": [
       "sections"
     ],
-    "template": "Respond ONLY with these sections: {sections}."
+    "template": "Respond ONLY with these sections: {sections}.",
+    "description": "AI follows exact structured output formats for consistent, predictable responses",
+    "use_case": "Report generation, API responses, documentation standards",
+    "examples": [
+      "Respond ONLY with: Executive Summary, Analysis, Recommendations, Next Steps",
+      "Respond ONLY with: Problem, Solution, Implementation, Testing"
+    ]
   },
   {
     "name": "Meta Language Creation",
@@ -99,7 +141,13 @@
       "commands",
       "rules"
     ],
-    "template": "Define a command language with commands {commands} and rules {rules}. Give 3 examples."
+    "template": "Define a command language with commands {commands} and rules {rules}. Give 3 examples.",
+    "description": "AI creates custom command languages and syntax for specific workflows",
+    "use_case": "Workflow automation, domain-specific languages, process standardization",
+    "examples": [
+      "Commands: ANALYZE, SUMMARIZE, COMPARE. Rules: chain with |, params in []",
+      "Commands: CREATE, UPDATE, DELETE. Rules: specify target with @, conditions with IF"
+    ]
   },
   {
     "name": "Recipe",
@@ -111,7 +159,13 @@
       "objective",
       "resources"
     ],
-    "template": "Objective: {objective}. Resources: {resources}. Provide step-by-step procedure with checkpoints."
+    "template": "Objective: {objective}. Resources: {resources}. Provide step-by-step procedure with checkpoints.",
+    "description": "AI provides detailed step-by-step procedures with verification checkpoints",
+    "use_case": "Process documentation, training materials, troubleshooting guides",
+    "examples": [
+      "Objective: Deploy microservice. Resources: Kubernetes, CI/CD, monitoring",
+      "Objective: Onboard new developer. Resources: Laptop, accounts, mentor"
+    ]
   },
   {
     "name": "Alternative Approaches",
@@ -123,7 +177,13 @@
       "task",
       "num_options"
     ],
-    "template": "Task: {task}. Provide {num_options} approaches. For each: Method, Pros, Cons, Risks."
+    "template": "Task: {task}. Provide {num_options} approaches. For each: Method, Pros, Cons, Risks.",
+    "description": "AI generates multiple solution options with comprehensive trade-off analysis",
+    "use_case": "Architecture decisions, technology selection, strategic planning",
+    "examples": [
+      "Task: implement authentication. Provide 3 approaches",
+      "Task: scale database. Provide 4 approaches"
+    ]
   },
   {
     "name": "Ask for Input",
@@ -135,7 +195,13 @@
       "task",
       "num_questions"
     ],
-    "template": "Task: {task}. Ask {num_questions} clarifying questions before proceeding."
+    "template": "Task: {task}. Ask {num_questions} clarifying questions before proceeding.",
+    "description": "AI requests specific information before proceeding to ensure accurate solutions",
+    "use_case": "Custom solutions, requirements analysis, personalization",
+    "examples": [
+      "Task: design database schema. Ask 4 clarifying questions",
+      "Task: create marketing campaign. Ask 5 clarifying questions"
+    ]
   },
   {
     "name": "Outline Expansion",
@@ -147,7 +213,13 @@
       "topic",
       "depth"
     ],
-    "template": "Topic: {topic}. Provide outline with depth {depth}. Expand each section."
+    "template": "Topic: {topic}. Provide outline with depth {depth}. Expand each section.",
+    "description": "AI creates hierarchical content structures and expands each section systematically",
+    "use_case": "Documentation creation, course design, research organization",
+    "examples": [
+      "Topic: microservices best practices. Depth: 3 levels",
+      "Topic: machine learning fundamentals. Depth: 4 levels"
+    ]
   },
   {
     "name": "Menu Actions",
@@ -158,7 +230,13 @@
     "inputs": [
       "menu_items"
     ],
-    "template": "Provide a menu of options: {menu_items}. Wait for user choice before proceeding."
+    "template": "Provide a menu of options: {menu_items}. Wait for user choice before proceeding.",
+    "description": "AI presents interactive menus and executes user-selected actions",
+    "use_case": "Interactive workflows, guided tutorials, decision trees",
+    "examples": [
+      "Menu: 1) Analyze performance 2) Design optimization 3) Review solutions 4) Create plan",
+      "Menu: A) Security audit B) Performance test C) Code review D) Documentation update"
+    ]
   },
   {
     "name": "Fact Check List",
@@ -169,7 +247,13 @@
     "inputs": [
       "claim"
     ],
-    "template": "Claim: {claim}. Break into atomic facts. Provide evidence, confidence (High/Med/Low)."
+    "template": "Claim: {claim}. Break into atomic facts. Provide evidence, confidence (High/Med/Low).",
+    "description": "AI breaks claims into verifiable facts with evidence and confidence ratings",
+    "use_case": "Information verification, research validation, quality assurance",
+    "examples": [
+      "Claim: Kubernetes reduces costs by 40% while improving reliability",
+      "Claim: Remote work increases productivity by 20% for developers"
+    ]
   },
   {
     "name": "Tail Generation",
@@ -182,7 +266,13 @@
       "style",
       "length"
     ],
-    "template": "Continue this text in style {style}, about {length} words: {incomplete_text}"
+    "template": "Continue this text in style {style}, about {length} words: {incomplete_text}",
+    "description": "AI continues incomplete content while maintaining consistent style and length",
+    "use_case": "Content completion, style consistency, draft enhancement",
+    "examples": [
+      "Continue in technical documentation style, 150 words: 'Microservices enable...'",
+      "Continue in conversational style, 100 words: 'When choosing a database...'"
+    ]
   },
   {
     "name": "Semantic Filter",
@@ -194,6 +284,12 @@
       "text",
       "filters"
     ],
-    "template": "Filter text according to {filters}. Return cleaned text and list of changes. Text: {text}"
+    "template": "Filter text according to {filters}. Return cleaned text and list of changes. Text: {text}",
+    "description": "AI filters and transforms content based on semantic criteria and rules",
+    "use_case": "Content sanitization, audience adaptation, compliance checking",
+    "examples": [
+      "Filters: remove jargon, simplify sentences, professional tone",
+      "Filters: PII removal, casual to formal, under 200 words"
+    ]
   }
 ]

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,14 +11,14 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -26,7 +27,7 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
         }
-        
+
         .header {
             background: linear-gradient(135deg, #2c3e50, #34495e);
             color: white;
@@ -34,24 +35,24 @@
             border-radius: 20px 20px 0 0;
             text-align: center;
         }
-        
+
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
-        
+
         .header p {
             font-size: 1.2em;
             opacity: 0.9;
         }
-        
+
         .nav-tabs {
             display: flex;
             background: #f8f9fa;
             border-bottom: 2px solid #e9ecef;
         }
-        
+
         .nav-tab {
             flex: 1;
             padding: 15px 20px;
@@ -63,33 +64,33 @@
             transition: all 0.3s ease;
             border-bottom: 3px solid transparent;
         }
-        
+
         .nav-tab:hover {
             background: #e9ecef;
         }
-        
+
         .nav-tab.active {
             background: white;
             border-bottom-color: #007bff;
             color: #007bff;
         }
-        
+
         .tab-content {
             padding: 30px;
             display: none;
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
+
         .pattern-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
-        
+
         .pattern-card {
             background: white;
             border: 2px solid #e9ecef;
@@ -99,25 +100,25 @@
             transition: all 0.3s ease;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
-        
+
         .pattern-card:hover {
             border-color: #007bff;
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(0, 123, 255, 0.1);
         }
-        
+
         .pattern-card.selected {
             border-color: #007bff;
             background: #f8f9ff;
         }
-        
+
         .pattern-title {
             font-size: 1.3em;
             font-weight: 700;
             color: #2c3e50;
             margin-bottom: 8px;
         }
-        
+
         .pattern-cluster {
             background: #007bff;
             color: white;
@@ -128,19 +129,21 @@
             display: inline-block;
             margin-bottom: 10px;
         }
-        
+
         .input-group {
             margin-bottom: 20px;
         }
-        
+
         .input-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
             color: #495057;
         }
-        
-        .input-group input, .input-group textarea, .input-group select {
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
             width: 100%;
             padding: 12px;
             border: 2px solid #e9ecef;
@@ -148,12 +151,14 @@
             font-size: 14px;
             transition: border-color 0.3s ease;
         }
-        
-        .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
+
+        .input-group input:focus,
+        .input-group textarea:focus,
+        .input-group select:focus {
             outline: none;
             border-color: #007bff;
         }
-        
+
         .btn {
             background: linear-gradient(135deg, #007bff, #0056b3);
             color: white;
@@ -165,12 +170,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .btn:hover {
             transform: translateY(-1px);
             box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
         }
-        
+
         .output-box {
             background: #f8f9fa;
             border: 2px solid #e9ecef;
@@ -181,7 +186,7 @@
             white-space: pre-wrap;
             min-height: 100px;
         }
-        
+
         .chat-container {
             background: #f8f9fa;
             border-radius: 12px;
@@ -189,50 +194,50 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         .chat-messages {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
         }
-        
+
         .message {
             margin-bottom: 15px;
             padding: 12px 16px;
             border-radius: 12px;
             max-width: 80%;
         }
-        
+
         .message.user {
             background: #007bff;
             color: white;
             margin-left: auto;
         }
-        
+
         .message.assistant {
             background: white;
             border: 2px solid #e9ecef;
         }
-        
+
         .chat-input {
             display: flex;
             padding: 20px;
             gap: 10px;
         }
-        
+
         .chat-input input {
             flex: 1;
             padding: 12px;
             border: 2px solid #e9ecef;
             border-radius: 8px;
         }
-        
+
         .rag-demo {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
         }
-        
+
         .doc-list {
             background: #f8f9fa;
             border-radius: 8px;
@@ -240,7 +245,7 @@
             max-height: 300px;
             overflow-y: auto;
         }
-        
+
         .doc-item {
             background: white;
             border: 1px solid #e9ecef;
@@ -250,40 +255,41 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .doc-item:hover {
             border-color: #007bff;
         }
-        
+
         .doc-item.selected {
             border-color: #007bff;
             background: #f8f9ff;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
             <h1>🚀 Prompt Engineering Demo</h1>
             <p>Interactive showcase of advanced prompt patterns, multi-turn conversations, and RAG</p>
         </div>
-        
+
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="switchTab('patterns')">📋 Template Library</button>
             <button class="nav-tab" onclick="switchTab('multiturn')">💬 Multi-Turn Chat</button>
             <button class="nav-tab" onclick="switchTab('rag')">🔍 RAG Demo</button>
             <button class="nav-tab" onclick="switchTab('evaluation')">📊 Evaluation</button>
         </div>
-        
+
         <!-- Template Library Tab -->
         <div id="patterns-tab" class="tab-content active">
             <h2>16 Prompt Engineering Patterns</h2>
             <p>Select a pattern below to see its template and try it interactively:</p>
-            
+
             <div class="pattern-grid" id="pattern-grid">
                 <!-- Patterns will be loaded here -->
             </div>
-            
+
             <div id="pattern-demo" style="display: none;">
                 <h3>Pattern Demo</h3>
                 <div id="pattern-inputs">
@@ -293,33 +299,35 @@
                 <div class="output-box" id="pattern-output"></div>
             </div>
         </div>
-        
+
         <!-- Multi-Turn Chat Tab -->
         <div id="multiturn-tab" class="tab-content">
             <h2>Multi-Turn Conversation Demo</h2>
             <p>Experience session memory and context management:</p>
-            
+
             <div class="input-group">
                 <label for="system-prompt">System Prompt:</label>
-                <textarea id="system-prompt" rows="3">You are a careful, policy-aware assistant who explains concepts concisely.</textarea>
+                <textarea id="system-prompt"
+                    rows="3">You are a careful, policy-aware assistant who explains concepts concisely.</textarea>
             </div>
-            
+
             <div class="chat-container">
                 <div class="chat-messages" id="chat-messages"></div>
                 <div class="chat-input">
-                    <input type="text" id="chat-input" placeholder="Type your message..." onkeypress="handleChatKeypress(event)">
+                    <input type="text" id="chat-input" placeholder="Type your message..."
+                        onkeypress="handleChatKeypress(event)">
                     <button class="btn" onclick="sendMessage()">Send</button>
                 </div>
             </div>
-            
+
             <button class="btn" onclick="clearChat()" style="margin-top: 15px;">Clear Chat</button>
         </div>
-        
+
         <!-- RAG Demo Tab -->
         <div id="rag-tab" class="tab-content">
             <h2>Retrieval-Augmented Generation (RAG)</h2>
             <p>See how context retrieval grounds AI responses:</p>
-            
+
             <div class="rag-demo">
                 <div>
                     <h3>Knowledge Base</h3>
@@ -327,30 +335,31 @@
                         <!-- Documents will be loaded here -->
                     </div>
                 </div>
-                
+
                 <div>
                     <h3>Query & Results</h3>
                     <div class="input-group">
                         <label for="rag-query">Query:</label>
-                        <input type="text" id="rag-query" placeholder="Ask about the knowledge base..." value="How should we handle uncertain answers?">
+                        <input type="text" id="rag-query" placeholder="Ask about the knowledge base..."
+                            value="How should we handle uncertain answers?">
                     </div>
                     <button class="btn" onclick="performRAG()">Search & Generate</button>
-                    
+
                     <div class="output-box" id="rag-output"></div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Evaluation Tab -->
         <div id="evaluation-tab" class="tab-content">
             <h2>Prompt Evaluation Framework</h2>
             <p>Test and measure prompt performance:</p>
-            
+
             <div class="input-group">
                 <label for="test-prompt">Prompt to Test:</label>
                 <textarea id="test-prompt" rows="4">Explain {topic} in simple terms for a {audience}.</textarea>
             </div>
-            
+
             <div class="input-group">
                 <label for="test-variables">Test Variables (JSON):</label>
                 <textarea id="test-variables" rows="6">{
@@ -358,7 +367,7 @@
   "audience": ["5-year-old", "college student", "business executive"]
 }</textarea>
             </div>
-            
+
             <button class="btn" onclick="runEvaluation()">Run Evaluation</button>
             <div class="output-box" id="eval-output"></div>
         </div>
@@ -436,7 +445,7 @@
         let systemPrompt = "";
 
         // Initialize the page
-        window.onload = function() {
+        window.onload = function () {
             loadPatterns();
             loadDocuments();
             systemPrompt = document.getElementById('system-prompt').value;
@@ -482,8 +491,32 @@
             const pattern = promptPatterns[index];
             const demo = document.getElementById('pattern-demo');
             const inputs = document.getElementById('pattern-inputs');
-            
-            inputs.innerHTML = `<h4>Template: ${pattern.template}</h4>`;
+
+            // Build examples section if available
+            let examplesHtml = '';
+            if (pattern.examples && pattern.examples.length > 0) {
+                examplesHtml = `
+                    <div style="background: #e8f4fd; padding: 10px; border-radius: 8px; margin-top: 10px;">
+                        <strong>Examples:</strong>
+                        <ul style="margin: 5px 0 0 20px;">
+                            ${pattern.examples.map(ex => `<li style="margin: 3px 0;">${ex}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            inputs.innerHTML = `
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <h4 style="color: #2c3e50; margin-bottom: 10px;">${pattern.name}</h4>
+                    <p style="color: #666; margin-bottom: 10px;"><strong>Description:</strong> ${pattern.description}</p>
+                    <p style="color: #666; margin-bottom: 10px;"><strong>Use Case:</strong> ${pattern.use_case}</p>
+                    <p style="color: #666; margin-bottom: 10px;"><strong>Cluster:</strong> ${pattern.cluster}</p>
+                    <div style="background: #fff; padding: 10px; border-left: 4px solid #007bff; margin-top: 10px;">
+                        <strong>Template:</strong> <code style="background: #f1f3f4; padding: 2px 4px; border-radius: 3px;">${pattern.template}</code>
+                    </div>
+                    ${examplesHtml}
+                </div>
+            `;
             pattern.inputs.forEach(input => {
                 inputs.innerHTML += `
                     <div class="input-group">
@@ -492,20 +525,20 @@
                     </div>
                 `;
             });
-            
+
             demo.style.display = 'block';
             window.selectedPattern = pattern;
         }
 
         function generatePrompt() {
             if (!window.selectedPattern) return;
-            
+
             let template = window.selectedPattern.template;
             window.selectedPattern.inputs.forEach(input => {
                 const value = document.getElementById(input).value || `[${input}]`;
                 template = template.replace(`{${input}}`, value);
             });
-            
+
             document.getElementById('pattern-output').textContent = `Generated Prompt:\n${template}\n\nMock Response:\n${mockLLMResponse(template)}`;
         }
 
@@ -522,14 +555,14 @@
 
             // Add user message
             addChatMessage('user', message);
-            chatHistory.push({role: 'user', content: message});
+            chatHistory.push({ role: 'user', content: message });
 
             // Generate response
             const context = systemPrompt + '\n' + chatHistory.map(h => `${h.role}: ${h.content}`).join('\n');
             const response = mockLLMResponse(context);
-            
+
             addChatMessage('assistant', response);
-            chatHistory.push({role: 'assistant', content: response});
+            chatHistory.push({ role: 'assistant', content: response });
 
             input.value = '';
         }
@@ -575,7 +608,7 @@
         function performRAG() {
             const query = document.getElementById('rag-query').value;
             const selectedDocs = Array.from(document.querySelectorAll('.doc-item.selected'));
-            
+
             let context = '';
             if (selectedDocs.length > 0) {
                 const docName = selectedDocs[0].querySelector('strong').textContent.toLowerCase().replace(' ', '_');
@@ -587,30 +620,31 @@
 
             const prompt = `Answer using ONLY this context. If not covered, say 'Not in context.'\n\nContext:\n${context}\n\nQuestion: ${query}`;
             const response = mockLLMResponse(prompt);
-            
+
             document.getElementById('rag-output').textContent = `Query: ${query}\n\nRetrieved Context:\n${context.substring(0, 200)}...\n\nResponse:\n${response}`;
         }
 
         function runEvaluation() {
             const template = document.getElementById('test-prompt').value;
             const variables = JSON.parse(document.getElementById('test-variables').value);
-            
+
             let results = "Evaluation Results:\n\n";
             const keys = Object.keys(variables);
             const firstKey = keys[0];
-            
+
             variables[firstKey].forEach((value, index) => {
                 let prompt = template;
                 keys.forEach(key => {
                     prompt = prompt.replace(`{${key}}`, variables[key][index % variables[key].length]);
                 });
-                
+
                 const response = mockLLMResponse(prompt);
                 results += `Test ${index + 1}:\nPrompt: ${prompt}\nResponse: ${response}\nLength: ${response.length} chars\n\n`;
             });
-            
+
             document.getElementById('eval-output').textContent = results;
         }
     </script>
 </body>
+
 </html>
